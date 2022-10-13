@@ -1,0 +1,32 @@
+service: reto-tecnico
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+plugins:
+  - serverless-offline
+
+functions:
+  traduccion:
+    handler: handler.traduccion
+    events:
+      - http:
+          method: GET
+          path: /personajes 
+
+  crearUsuario:
+    handler: handler.crearUsuario
+    events:
+      - http:
+          method: POST
+          path: /usuarios
+
+  muestraUsuario:
+    handler: handler.muestraUsuario
+    events:
+      - http:
+          method: GET
+          path: /usuarios
+

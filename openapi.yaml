@@ -1,0 +1,84 @@
+openapi: 3.0.3
+info:
+  title: Reto técnico
+  description: Documentación de API
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+tags:
+  - name: usuario
+    description: Mantenimiento de usuarios
+  - name: personaje
+    description: Personajes de Swapi
+paths:
+  /usuarios:
+    post:
+      tags:
+        - usuario
+      summary: crea usuario
+      description: Permite crear un nuevo usuario
+      operationId: creaUsuario
+      requestBody:
+        description: Crea un nuevo usuario en la BBDD
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Usuario'
+        required: true
+      responses:
+        '200':
+          description: Creación correcta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Usuario'
+    get:
+      tags:
+        - usuario
+      summary: obtiene usuario
+      description: Obtiene todos los usuarios de la BBDD
+      operationId: muestraUsuario
+      responses:
+        '200':
+          description: Respuesta correcta
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Usuario'
+  /personajes:
+    get:
+      tags:
+        - personaje
+      summary: retorna personajes
+      description: Retorna lista de personajes de SWAPI
+      operationId: traduccion
+      responses:
+        '200':
+          description: respuesta correcta
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: integer
+                  format: int32
+components:
+  schemas:
+    Usuario:
+      required:
+        - nombre
+      type: object
+      properties:
+        nombre:
+          type: string
+          example: Edwin
+        fechadenacimiento:
+          type: string
+          format: date
+          example: '2022-10-01'
+        telefono:
+          type: string
+          format: number
+          example: '987654321'
